@@ -19,24 +19,30 @@ public class MedicationServiceImpl implements MedicationService {
 
 	@Override
 	public List<MedicationDto> listAll() {
-		List<Medication> diagnosislist=repo.findAll();
-        List<MedicationDto> dtolist=new ArrayList<>();
-		
-        for (Medication entity:diagnosislist) {
-        	dtolist.add(convertEntityToDto(entity));
-        }
+		List<Medication> diagnosislist = repo.findAll();
+		List<MedicationDto> dtolist = new ArrayList<>();
+
+		for (Medication entity : diagnosislist) {
+			dtolist.add(convertEntityToDto(entity));
+		}
 		return dtolist;
 	}
 
 	@Override
 	public MedicationDto save(MedicationDto medication) {
-		return  convertEntityToDto(repo.save(convertDtoToEntity(medication)));
+
+		int id = repo.getMaxTransactionId();
+
+		Medication medi = convertDtoToEntity(medication);
+		System.out.println("print id of medication " + id);
+		medi.setId(id + 1);
+		return convertEntityToDto(repo.save(medi));
 
 	}
 
 	@Override
 	public MedicationDto get(Integer id) {
-		 return convertEntityToDto(repo.findById(id).get());
+		return convertEntityToDto(repo.findById(id).get());
 	}
 
 	@Override
@@ -55,7 +61,6 @@ public class MedicationServiceImpl implements MedicationService {
 		dto.setDrugGenericName(medication.getDrugGenericName());
 		dto.setDrugName(medication.getDrugName());
 		dto.setDrugStrength(medication.getDrugStrength());
-	
 
 		return dto;
 	}

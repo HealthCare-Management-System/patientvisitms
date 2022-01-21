@@ -6,54 +6,61 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.citius.patientvisitms.entities.Diagnosis;
 import com.citius.patientvisitms.entities.Procedure;
 import com.citius.patientvisitms.repo.ProcedureRepo;
 import com.citius.patientvisitms.service.ProcedureService;
 import com.model.ProcedureDto;
 
-
 @Service
-public class ProcedureServiceImpl implements ProcedureService{
-	
+public class ProcedureServiceImpl implements ProcedureService {
+
 	@Autowired
-    private ProcedureRepo repo;
-     
+	private ProcedureRepo repo;
+
 	@Override
-    public List<ProcedureDto> listAll() {
-		List<Procedure> diagnosislist=repo.findAll();
-        List<ProcedureDto> dtolist=new ArrayList<>();
-        
-        for (Procedure entity:diagnosislist) {
-        	dtolist.add(convertEntityToDto(entity));
-        }
+	public List<ProcedureDto> listAll() {
+		List<Procedure> diagnosislist = repo.findAll();
+		List<ProcedureDto> dtolist = new ArrayList<>();
+
+		for (Procedure entity : diagnosislist) {
+			dtolist.add(convertEntityToDto(entity));
+		}
 		return dtolist;
-    }
-     
+	}
+
 	@Override
-    public ProcedureDto save(ProcedureDto procedure) {
-		return  convertEntityToDto(repo.save(convertDtoToEntity(procedure)));
-    }
-     
+	public ProcedureDto save(ProcedureDto procedure) {
+
+		int id = repo.getMaxTransactionId();
+
+		Procedure pro = convertDtoToEntity(procedure);
+		System.out.println("print id of medication " + id);
+		pro.setId(id + 1);
+		return convertEntityToDto(repo.save(pro));
+
+	}
+
 	@Override
-    public ProcedureDto get(Integer id) {
+	public ProcedureDto get(Integer id) {
 		return convertEntityToDto(repo.findById(id).get());
-    }
-     
+	}
+
 	@Override
-    public void delete(Integer id) {
-        repo.deleteById(id);
-    }
+	public void delete(Integer id) {
+		repo.deleteById(id);
+	}
 
 	@Override
 	public ProcedureDto convertEntityToDto(Procedure procedure) {
 
-		ProcedureDto dto= new ProcedureDto();
+		ProcedureDto dto = new ProcedureDto();
 		dto.setId(procedure.getId());
 		dto.setProcedureCode(procedure.getProcedureCode());
 		dto.setProcedureDescription(procedure.getProcedureDescription());
 		dto.setProcedureDepricated(procedure.getProcedureDepricated());
-		
-		return null;
+
+		return dto;
 	}
 
 	@Override

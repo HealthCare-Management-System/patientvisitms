@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,11 +30,20 @@ public class DiagnosisController {
 	@Autowired
     private DiagnosisService service;
 	
+	
+	@CrossOrigin
 	@GetMapping
 	public List<DiagnosisDto> list() {
 	    return service.listAll();
 	}
 	
+	@CrossOrigin
+	@GetMapping("/ping")
+	public ResponseEntity<String> greeting() {
+		return new ResponseEntity<>("Diagnosis Up!!!", HttpStatus.OK);
+	}
+	
+	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<DiagnosisDto> get(@PathVariable Integer id) {
 	    try {
@@ -44,12 +54,14 @@ public class DiagnosisController {
 	    }      
 	}
 	
+	@CrossOrigin
 	@PostMapping
 	public ResponseEntity<DiagnosisDto> add(@RequestBody DiagnosisDto diagnosis) {
 	        
 	    return new ResponseEntity<DiagnosisDto>(service.save(diagnosis), HttpStatus.CREATED);
 	}
 	
+	@CrossOrigin
 	@PutMapping("/{id}")
 	public ResponseEntity<DiagnosisDto> update(@RequestBody DiagnosisDto diagnosis, @PathVariable Integer id) {
 	    try {
@@ -61,6 +73,7 @@ public class DiagnosisController {
 	    }      
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
 	    service.delete(id);

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.citius.patientvisitms.entities.Diagnosis;
+import com.citius.patientvisitms.entities.Medication;
 import com.citius.patientvisitms.repo.DiagnosisRepo;
 import com.citius.patientvisitms.service.DiagnosisService;
 import com.model.DiagnosisDto;
@@ -31,7 +32,14 @@ public class DiagnosisServiceImpl implements DiagnosisService{
      
 	@Override
     public DiagnosisDto save(DiagnosisDto diagnosis) {
-      return  convertEntityToDto(repo.save(convertDtoToEntity(diagnosis)));
+		
+		int id = repo.getMaxTransactionId();
+
+		Diagnosis dia = convertDtoToEntity(diagnosis);
+		System.out.println("print id of medication " + id);
+		dia.setId(id + 1);
+		return convertEntityToDto(repo.save(dia));
+     
     }
      
 	@Override

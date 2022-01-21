@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Procedure {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private int id;
 	private String procedureCode;
 	private String procedureDescription;

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Diagnosis {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
 	private int id;
 	private String diagnosisCode;
 	private String diagnosisDescription;

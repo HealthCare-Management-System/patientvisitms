@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +26,19 @@ public class ProcedureController {
 	@Autowired
     private ProcedureService service;
 	
+	@CrossOrigin
 	@GetMapping
 	public List<ProcedureDto> list() {
 	    return service.listAll();
 	}
+	
+	
+	@CrossOrigin
+	@GetMapping("/ping")
+	public ResponseEntity<String> greeting() {
+		return new ResponseEntity<>("procedure Application Up!!!", HttpStatus.OK);
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<ProcedureDto> get(@PathVariable Integer id) {
 	    try {
