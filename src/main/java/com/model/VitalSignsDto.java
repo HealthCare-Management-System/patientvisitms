@@ -11,6 +11,18 @@ public class VitalSignsDto {
 	private String dateTime;
 	private PatientDetailsDto patientInfoId;
 	private UserDto employeeId;
+	private String meetingid;
+
+	
+	
+	
+	public String getMeetingid() {
+		return meetingid;
+	}
+
+	public void setMeetingid(String meetingid) {
+		this.meetingid = meetingid;
+	}
 
 	public int getId() {
 		return id;
