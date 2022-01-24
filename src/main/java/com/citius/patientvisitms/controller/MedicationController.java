@@ -52,6 +52,7 @@ public class MedicationController {
 	
 	@PostMapping
 	public ResponseEntity<MedicationDto> add(@RequestBody MedicationDto medication) {
+		System.out.println("Inside MedicationDto"+medication);
 	    return new ResponseEntity<MedicationDto>(service.save(medication), HttpStatus.OK);
 	}
 	

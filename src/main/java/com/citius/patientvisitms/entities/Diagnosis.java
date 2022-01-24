@@ -11,8 +11,7 @@ import javax.persistence.Table;
 public class Diagnosis {
 
 	@Id
-	
-	private int id;
+    private int id;
 	private String diagnosisCode;
 	private String diagnosisDescription;
 	private Boolean diagnosisIsDepricated;

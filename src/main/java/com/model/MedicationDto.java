@@ -3,12 +3,14 @@ package com.model;
 public class MedicationDto {
 
 	private int id;
-	private String drugId;
+	
 	private String drugName;
 	private String drugGenericName;
 	private String drugBrandName;
 	private String drugForm;
 	private String drugStrength;
+	
+	
 
 	public int getId() {
 		return id;
@@ -18,13 +20,7 @@ public class MedicationDto {
 		this.id = id;
 	}
 
-	public String getDrugId() {
-		return drugId;
-	}
 
-	public void setDrugId(String drugId) {
-		this.drugId = drugId;
-	}
 
 	public String getDrugName() {
 		return drugName;

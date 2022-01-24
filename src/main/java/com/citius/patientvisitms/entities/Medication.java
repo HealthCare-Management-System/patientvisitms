@@ -19,6 +19,8 @@ public class Medication {
 	private String drugBrandName;
 	private String drugForm;
 	private String drugStrength;
+	
+	
 
 	public int getId() {
 		return id;
