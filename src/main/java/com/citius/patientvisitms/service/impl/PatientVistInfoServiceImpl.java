@@ -14,6 +14,7 @@ import com.citius.patientvisitms.service.DiagnosisService;
 import com.citius.patientvisitms.service.MedicationService;
 import com.citius.patientvisitms.service.PatientVistInfoService;
 import com.citius.patientvisitms.service.ProcedureService;
+import com.model.PatientDetailsDto;
 import com.model.PatientVistInfoDto;
 import com.model.UserDto;
 import com.model.VitalSignsDto;
@@ -43,6 +44,23 @@ public class PatientVistInfoServiceImpl implements PatientVistInfoService {
 
 		for (PatientVistInfo entity : diagnosislist) {
 			dtolist.add(convertEntityToDto(entity));
+		}
+		return dtolist;
+	}
+
+	@Override
+	public List<PatientVistInfoDto> listAllByPatientId(int id) {
+		List<PatientVistInfo> diagnosislist = repo.findAll();
+		List<PatientVistInfoDto> dtolist = new ArrayList<>();
+		PatientDetailsDto patientdto = getPatientInfoDtoFromPatientMs(id);
+		for (PatientVistInfo entity : diagnosislist) {
+
+			VitalSignsDto vitaldto = getVitalSignDtoFromVitalSignMs(entity.getVitalSignId());
+
+			if (vitaldto.getPatientInfoId().getUser().getId()==(patientdto.getUser().getId())) {
+				dtolist.add(convertEntityToDto(entity));
+			}
+
 		}
 		return dtolist;
 	}
@@ -85,6 +103,12 @@ public class PatientVistInfoServiceImpl implements PatientVistInfoService {
 	public VitalSignsDto getVitalSignDtoFromVitalSignMs(int id) {
 		ResponseEntity<VitalSignsDto> response = restTemplate.getForEntity("http://localhost:8082/vitalsigns/" + id,
 				VitalSignsDto.class);
+		return response.getBody();
+	}
+
+	public PatientDetailsDto getPatientInfoDtoFromPatientMs(int id) {
+		ResponseEntity<PatientDetailsDto> response = restTemplate
+				.getForEntity("http://localhost:8084/patientdetails/" + id, PatientDetailsDto.class);
 		return response.getBody();
 	}
 

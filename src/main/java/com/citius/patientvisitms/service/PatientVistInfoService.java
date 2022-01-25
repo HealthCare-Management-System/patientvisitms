@@ -8,6 +8,8 @@ import com.model.PatientVistInfoDto;
 public interface PatientVistInfoService {
 
 	public List<PatientVistInfoDto> listAll();
+	
+	public List<PatientVistInfoDto> listAllByPatientId(int id);
 
 	public PatientVistInfoDto save(PatientVistInfoDto patientvisiteinfo);
 

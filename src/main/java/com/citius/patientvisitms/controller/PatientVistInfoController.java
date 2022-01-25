@@ -34,6 +34,12 @@ public class PatientVistInfoController {
 	public List<PatientVistInfoDto> list() {
 	    return service.listAll();
 	}
+	
+	@GetMapping("/patient/{id}")
+	public List<PatientVistInfoDto> listBasedOnPatientId(@PathVariable Integer id) {
+	    return service.listAllByPatientId(id);
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<PatientVistInfoDto> get(@PathVariable Integer id) {
 	    try {
