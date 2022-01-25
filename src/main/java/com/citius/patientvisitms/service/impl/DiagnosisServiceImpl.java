@@ -32,13 +32,14 @@ public class DiagnosisServiceImpl implements DiagnosisService{
      
 	@Override
     public DiagnosisDto save(DiagnosisDto diagnosis) {
-		
+		System.out.println("inside diadnosis save method");
 		int id = repo.getMaxTransactionId();
 
 		Diagnosis dia = convertDtoToEntity(diagnosis);
 		System.out.println("print id of medication " + id);
 		dia.setId(id + 1);
 		return convertEntityToDto(repo.save(dia));
+	
      
     }
      

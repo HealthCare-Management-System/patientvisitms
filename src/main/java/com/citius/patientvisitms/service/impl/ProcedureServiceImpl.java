@@ -35,7 +35,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 		int id = repo.getMaxTransactionId();
 
 		Procedure pro = convertDtoToEntity(procedure);
-		System.out.println("print id of medication " + id);
+		System.out.println("print id of procedure " + id);
 		pro.setId(id + 1);
 		return convertEntityToDto(repo.save(pro));
 

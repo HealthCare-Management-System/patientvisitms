@@ -8,6 +8,6 @@ import com.citius.patientvisitms.entities.Procedure;
 
 
 public interface ProcedureRepo extends JpaRepository<Procedure, Integer>{
-	@Query(value = "SELECT coalesce(max(id), 0) FROM Medication")
+	@Query(value = "SELECT coalesce(max(id), 0) FROM Procedure")
 	int getMaxTransactionId();
 }
